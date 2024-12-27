@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 const Navbar = ({ mode, toggleMode }) => {
     return (
         <div className="w-full p-4 px-10 lg:px-20 border-b dark:border-gray-400 flex justify-between">
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-sky-800 dark:text-white">Friends</h1>
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-sky-600 dark:text-white">Friends</h1>
             <div className="flex gap-3">
-                <button onClick={toggleMode} className={'text-xl md:text-2xl lg:text-3xl text-sky-800 dark:text-white'}>
+                <button onClick={toggleMode} className={'text-xl md:text-2xl lg:text-3xl text-sky-600 dark:text-white'}>
                     {mode === 'light' ? (
                         <IoSunny/>
                     ) : (

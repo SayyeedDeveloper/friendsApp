@@ -10,7 +10,7 @@ const CreateUserButton = () => {
     };
     return (
         <>
-            <button onClick={handleClick} className={'text-xl lg:text-3xl text-sky-800 dark:text-white'}>
+            <button onClick={handleClick} className={'text-xl lg:text-3xl text-sky-600 dark:text-white'}>
                 <FaCirclePlus/>
             </button>
             {toggle === true ? (
@@ -73,11 +73,11 @@ const CreateUserButton = () => {
                                 <div className={'flex gap-3 mt-2'}>
                                     <div className={'flex gap-1'}>
                                         <label htmlFor={'male'}>Male</label>
-                                        <input className={'flex self-center'} name={'gender'} value={'male'} alt={'male'} type="radio"/>
+                                        <input id={'male'} className={'flex self-center'} name={'gender'} value={'male'} alt={'male'} type="radio" defaultChecked={true}/>
                                     </div>
                                     <div className={'flex gap-1'}>
                                         <label htmlFor="{'female'}">Female</label>
-                                        <input  className={'flex self-center'} name={'gender'} value={'female'} alt={'female'} type="radio"/>
+                                        <input id={'female'}  className={'flex self-center'} name={'gender'} value={'female'} alt={'female'} type="radio" defaultChecked={false}/>
                                     </div>
                                 </div>
                                 <div className={'flex sm:flex-row-reverse gap-3 mt-2 self-end'}>
@@ -85,7 +85,7 @@ const CreateUserButton = () => {
                                             className={'p-1 bg-red-700 text-white px-3 rounded-lg'}>Reset
                                     </button>
                                     <button type={'submit'}
-                                            className={'p-1 bg-white dark:bg-sky-800 text-sky-800 dark:text-white px-4 rounded-lg'}>Add
+                                            className={'p-1 bg-white dark:bg-sky-800 text-sky-600 dark:text-white px-4 rounded-lg'}>Add
                                     </button>
                                 </div>
                             </form>
