@@ -71,13 +71,13 @@ const CreateUserButton = () => {
                                     </div>
                                 </div>
                                 <div className={'flex gap-3 mt-2'}>
-                                    <div className={'flex justify-center align-middle gap-1'}>
+                                    <div className={'flex gap-1'}>
                                         <label htmlFor={'male'}>Male</label>
-                                        <input name={'gender'} value={'male'} alt={'male'} type="radio"/>
+                                        <input className={'flex self-center'} name={'gender'} value={'male'} alt={'male'} type="radio"/>
                                     </div>
-                                    <div className={'flex justify-center align-middle gap-1'}>
+                                    <div className={'flex gap-1'}>
                                         <label htmlFor="{'female'}">Female</label>
-                                        <input  name={'gender'} value={'female'} alt={'female'} type="radio"/>
+                                        <input  className={'flex self-center'} name={'gender'} value={'female'} alt={'female'} type="radio"/>
                                     </div>
                                 </div>
                                 <div className={'flex sm:flex-row-reverse gap-3 mt-2 self-end'}>
