@@ -1,6 +1,6 @@
 import { AiFillMoon } from "react-icons/ai";
 import { IoSunny } from "react-icons/io5";
-import { FaCirclePlus } from "react-icons/fa6";
+import CreateUserButton from "./CreateUserButton.jsx";
 import PropTypes from 'prop-types';
 
 const Navbar = ({ mode, toggleMode }) => {
@@ -15,9 +15,7 @@ const Navbar = ({ mode, toggleMode }) => {
                         <AiFillMoon />
                     )}
                 </button>
-                <button>
-                    <FaCirclePlus className="text-2xl lg:text-3xl text-sky-800 dark:text-white"/>
-                </button>
+                <CreateUserButton />
             </div>
         </div>
     );
