@@ -10,9 +10,9 @@ const Navbar = ({ mode, toggleMode }) => {
             <div className="flex gap-3">
                 <button onClick={toggleMode} className={'text-xl md:text-2xl lg:text-3xl text-sky-600 dark:text-white'}>
                     {mode === 'light' ? (
-                        <IoSunny/>
-                    ) : (
                         <AiFillMoon />
+                    ) : (
+                        <IoSunny/>
                     )}
                 </button>
                 <CreateUserButton />
