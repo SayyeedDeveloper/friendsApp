@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import UserGrid from "./components/userGrid.jsx";
-import Toast from "./components/Toast.jsx";
+// import Toast from "./components/Toast.jsx";
 
 function App() {
     const [mode, setMode] = useState(() => localStorage.getItem('mode') || 'light');
-    const [activeToast, setActiveToast] = useState({show: false});
+    // const [activeToast, setActiveToast] = useState({show: false});
 
     const [users, setUsers] = useState([]);
 
@@ -15,9 +15,9 @@ function App() {
         localStorage.setItem('mode', newMode);
     };
 
-    useEffect(() => {
-        setActiveToast({show: true, type: 'success'});
-    }, []);
+    // useEffect(() => {
+    //     setActiveToast({show: true, type: 'success'});
+    // }, []);
 
     useEffect(() => {
         if (mode === 'dark') {
@@ -35,7 +35,6 @@ function App() {
             <div className={'container'}>
                 <UserGrid users={users} setUsers={setUsers}/>
             </div>
-            {activeToast.show && (<Toast setActiveToast={setActiveToast} type={'warning'} child={'Sorry It will damage your account'}/>)}
         </div>
     );
 }

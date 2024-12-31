@@ -1,8 +1,9 @@
 import UserCard from "./userCard.jsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 
 const UserGrid = ({users, setUsers}) => {
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const getUsers = async () => {
                 try {
@@ -16,6 +17,8 @@ const UserGrid = ({users, setUsers}) => {
                 } catch (error) {
                     console.error(error);
 
+                }finally {
+                    setIsLoading(false);
                 }
         }
         getUsers();
@@ -26,6 +29,8 @@ const UserGrid = ({users, setUsers}) => {
             {users.map(user => (
                 <UserCard key={user.id} user={user}/>
             ))}
+            {isLoading && <p>Loading...</p>}
+            {!isLoading && users.length === 0 && <p>No users found</p>}
         </div>
         )
 }

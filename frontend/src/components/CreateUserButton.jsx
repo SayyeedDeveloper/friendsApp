@@ -4,9 +4,32 @@ import { IoIosCloseCircle } from "react-icons/io";
 
 const CreateUserButton = () => {
     const [toggle, setToggle] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [input, setInput] = useState({
+        name: '',
+        role: '',
+        description: '',
+        gender: ''
+    });
+
+    const handleCreateUser = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        try {
+            const res = await fetch('http://127.0.0.1:5000/friends',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(input)
+            });
+        } catch (error) {
+
+        }
+    }
+
     const handleClick = () => {
         setToggle(!toggle);
-
     };
     return (
         <>
@@ -33,6 +56,8 @@ const CreateUserButton = () => {
                                             <input type="text"
                                                    name="name"
                                                    id="name"
+                                                   value={input.name}
+                                                   onClick={(e) => setInput({...input, name: e.target.value})}
                                                    autoComplete="name"
                                                    placeholder={`Elon Musk`}
                                                    className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none"
@@ -47,6 +72,8 @@ const CreateUserButton = () => {
                                             <input type="text"
                                                    name="role"
                                                    id="role"
+                                                   value={input.role}
+                                                   onClick={(e) => setInput({...input, role: e.target.value})}
                                                    autoComplete="role"
                                                    placeholder={`Software Engineer`}
                                                    className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none"
@@ -63,6 +90,8 @@ const CreateUserButton = () => {
                                         <textarea
                                                name="description"
                                                id="description"
+                                               value={input.description}
+                                               onClick={(e) => setInput({...input, description: e.target.value})}
                                                autoComplete="description"
                                                placeholder={`He is a software engineer who is also the CEO of Tesla Inc.`}
                                                className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none overscroll-contain"
@@ -73,11 +102,29 @@ const CreateUserButton = () => {
                                 <div className={'flex gap-3 mt-2'}>
                                     <div className={'flex gap-1'}>
                                         <label htmlFor={'male'}>Male</label>
-                                        <input id={'male'} className={'flex self-center'} name={'gender'} value={'male'} alt={'male'} type="radio" defaultChecked={true}/>
+                                        <input
+                                            id={'male'}
+                                            className={'flex self-center'}
+                                            name={'gender'}
+                                            value={'male'}
+                                            alt={'male'}
+                                            type="radio"
+                                            defaultChecked={true}
+                                            onClick={(e) => setInput({...input, gender: e.target.value})}
+                                        />
                                     </div>
                                     <div className={'flex gap-1'}>
                                         <label htmlFor="{'female'}">Female</label>
-                                        <input id={'female'}  className={'flex self-center'} name={'gender'} value={'female'} alt={'female'} type="radio" defaultChecked={false}/>
+                                        <input
+                                            id={'female'}
+                                            className={'flex self-center'}
+                                            name={'gender'}
+                                            value={'female'}
+                                            alt={'female'}
+                                            type="radio"
+                                            defaultChecked={false}
+                                            onClick={(e) => setInput({...input, gender: e.target.value})}
+                                        />
                                     </div>
                                 </div>
                                 <div className={'flex sm:flex-row-reverse gap-3 mt-2 self-end'}>
