@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-const Toast = ({type, setActiveToast, child}) => {
-
+const Toast = ({ type, setActiveToast, child }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setActiveToast({ show: false, type: '', child: '' });
@@ -11,7 +10,8 @@ const Toast = ({type, setActiveToast, child}) => {
 
     const handleClick = () => {
         setActiveToast({ show: false, type: '', child: '' });
-    }
+    };
+
     switch (type) {
         case 'success':
             return (
@@ -40,7 +40,7 @@ const Toast = ({type, setActiveToast, child}) => {
                         </svg>
                     </button>
                 </div>
-            )
+            );
         case 'error':
             return (
                 <div id="toast-danger"
@@ -68,7 +68,7 @@ const Toast = ({type, setActiveToast, child}) => {
                         </svg>
                     </button>
                 </div>
-            )
+            );
         case 'warning':
             return (
                 <div id="toast-warning"
@@ -96,11 +96,10 @@ const Toast = ({type, setActiveToast, child}) => {
                         </svg>
                     </button>
                 </div>
-            )
+            );
         default:
-            return (
-                <></>
-            )
+            return <></>;
     }
-}
+};
+
 export default Toast;

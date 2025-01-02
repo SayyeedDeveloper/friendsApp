@@ -2,7 +2,7 @@ import {FaCirclePlus} from "react-icons/fa6";
 import {useState} from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 
-const CreateUserButton = () => {
+const CreateUserButton = ({setActiveToast}) => {
     const [toggle, setToggle] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [input, setInput] = useState({
@@ -23,8 +23,23 @@ const CreateUserButton = () => {
                 },
                 body: JSON.stringify(input)
             });
+            const data = await res.json()
+            if(!res.ok){
+                throw new Error(data.error)
+            }
+            setActiveToast({show: true, type: 'success', child: 'Friend created successfully!'});
+            handleClick()
         } catch (error) {
-
+            setActiveToast({show: true, type: 'error', child: 'Something went wrong please try again!'});
+            console.error(error);
+        }finally {
+            setIsLoading(false)
+            setInput({
+                name: "",
+                role: "",
+                description: "",
+                gender: ""
+            });
         }
     }
 
@@ -46,7 +61,7 @@ const CreateUserButton = () => {
                                 <IoIosCloseCircle/>
                             </button>
                             <h1 className={'uppercase font-bold text-xl lg:text-2xl flex p-3'}>Add friends 😎</h1>
-                            <form className={'m-2 text-white dark:text-sky-800'}>
+                            <form className={'m-2 text-white dark:text-sky-800'} onSubmit={handleCreateUser}>
                                 <div className={'block md:flex gap-4'}>
                                     <div className={'w-full md:w-6/12'}>
                                         <label htmlFor="name"
@@ -57,7 +72,7 @@ const CreateUserButton = () => {
                                                    name="name"
                                                    id="name"
                                                    value={input.name}
-                                                   onClick={(e) => setInput({...input, name: e.target.value})}
+                                                   onChange={(e) => setInput({...input, name: e.target.value})}
                                                    autoComplete="name"
                                                    placeholder={`Elon Musk`}
                                                    className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none"
@@ -73,7 +88,7 @@ const CreateUserButton = () => {
                                                    name="role"
                                                    id="role"
                                                    value={input.role}
-                                                   onClick={(e) => setInput({...input, role: e.target.value})}
+                                                   onChange={(e) => setInput({...input, role: e.target.value})}
                                                    autoComplete="role"
                                                    placeholder={`Software Engineer`}
                                                    className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none"
@@ -91,7 +106,7 @@ const CreateUserButton = () => {
                                                name="description"
                                                id="description"
                                                value={input.description}
-                                               onClick={(e) => setInput({...input, description: e.target.value})}
+                                               onChange={(e) => setInput({...input, description: e.target.value})}
                                                autoComplete="description"
                                                placeholder={`He is a software engineer who is also the CEO of Tesla Inc.`}
                                                className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none overscroll-contain"
@@ -109,8 +124,8 @@ const CreateUserButton = () => {
                                             value={'male'}
                                             alt={'male'}
                                             type="radio"
-                                            defaultChecked={true}
-                                            onClick={(e) => setInput({...input, gender: e.target.value})}
+                                            defaultChecked={false}
+                                            onChange={(e) => setInput({...input, gender: e.target.value})}
                                         />
                                     </div>
                                     <div className={'flex gap-1'}>
@@ -123,7 +138,7 @@ const CreateUserButton = () => {
                                             alt={'female'}
                                             type="radio"
                                             defaultChecked={false}
-                                            onClick={(e) => setInput({...input, gender: e.target.value})}
+                                            onChange={(e) => setInput({...input, gender: e.target.value})}
                                         />
                                     </div>
                                 </div>
@@ -132,7 +147,8 @@ const CreateUserButton = () => {
                                             className={'p-1 bg-red-700 text-white px-3 rounded-lg'}>Reset
                                     </button>
                                     <button type={'submit'}
-                                            className={'p-1 bg-white dark:bg-sky-800 text-sky-600 dark:text-white px-4 rounded-lg'}>Add
+                                            className={'p-1 bg-white dark:bg-sky-800 text-sky-600 dark:text-white px-4 rounded-lg'}>
+                                        {isLoading ? "Loading ..." : "Add"}
                                     </button>
                                 </div>
                             </form>
