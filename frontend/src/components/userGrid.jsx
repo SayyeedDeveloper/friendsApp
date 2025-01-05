@@ -1,4 +1,4 @@
-import UserCard from "./userCard.jsx";
+import UserCard from "./UserCard.jsx";
 import {useEffect, useState} from "react";
 import {BASE_URL} from "../App.jsx";
 
