@@ -69,7 +69,7 @@ def update_friend(id):
             fried.description = data.get('description', fried.description)
             if fried.gender == 'male':
                 fried.image_url = f"https://avatar.iran.liara.run/public/boy?username=[{data.get('name')}]"
-            elif fried.gender('gender')  == 'female':
+            elif fried.gender == 'female':
                 fried.image_url = f"https://avatar.iran.liara.run/public/girl?username=[{data.get('name')}]"
             else:
                 fried.image_url = None
