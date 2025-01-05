@@ -1,6 +1,7 @@
 import {FaCirclePlus} from "react-icons/fa6";
 import {useState} from "react";
 import { IoIosCloseCircle } from "react-icons/io";
+import {BASE_URL} from "../App.jsx";
 
 const CreateUserButton = ({setActiveToast, setUsers}) => {
     const [toggle, setToggle] = useState(false);
@@ -16,7 +17,7 @@ const CreateUserButton = ({setActiveToast, setUsers}) => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const res = await fetch('http://127.0.0.1:5000/friends',{
+            const res = await fetch(BASE_URL + '/friends',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

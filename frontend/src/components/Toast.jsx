@@ -4,7 +4,7 @@ const Toast = ({ type, setActiveToast, child }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setActiveToast({ show: false, type: '', child: '' });
-        }, 5000);
+        }, 3000);
         return () => clearTimeout(timer);
     }, [setActiveToast]);
 

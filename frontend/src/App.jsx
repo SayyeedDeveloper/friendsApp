@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import UserGrid from "./components/userGrid.jsx";
 import Toast from "./components/Toast.jsx";
 // import Toast from "./components/Toast.jsx";
-export const BASE_URL = 'http://127.0.0.1:5000';
+export const BASE_URL = 'https://friendsapp-37vi.onrender.com';
 
 function App() {
 
