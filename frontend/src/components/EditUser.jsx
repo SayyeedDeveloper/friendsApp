@@ -1,13 +1,48 @@
 import { FiEdit } from "react-icons/fi";
 import {useState} from "react";
 import { IoIosCloseCircle } from "react-icons/io";
+import {BASE_URL} from "../App.jsx";
 
-const EditUser = () => {
+
+const EditUser = ({user, setUsers, setActiveToast}) => {
     const [toggle, setToggle] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [inputs, setInputs] = useState({
+        name: user.name,
+        role: user.role,
+        description: user.description,
+    });
+
     const handleClick = () => {
         setToggle(!toggle);
-
     };
+    const handleEdit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        try {
+            const res = await fetch(BASE_URL + '/friends/' + user.id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(inputs)
+            });
+            const data = await res.json();
+
+            if (!res.ok){
+                throw new Error(data.error);
+            }
+            setUsers((prevUser) => prevUser.map((u) => u.id === user.id ? data : u));
+            setActiveToast({show: true, type: 'success', child: 'Friend updated successfully!'});
+        }catch (error){
+            console.error(error);
+            setActiveToast({show: true, type: 'error', child: 'Something went wrong please try again!'});
+        }finally {
+            setIsLoading(false);
+            handleClick();
+        }
+
+    }
     return (
         <>
             <button onClick={handleClick} className={'text-sm text-sky-600 dark:text-white'}>
@@ -23,7 +58,7 @@ const EditUser = () => {
                                 <IoIosCloseCircle/>
                             </button>
                             <h1 className={'uppercase font-bold text-xl lg:text-2xl flex p-3'}>Edit friend 😎</h1>
-                            <form className={'m-2 text-white dark:text-sky-800'}>
+                            <form className={'m-2 text-white dark:text-sky-800'} onSubmit={handleEdit}>
                                 <div className={'block md:flex gap-4'}>
                                     <div className={'w-full md:w-6/12'}>
                                         <label htmlFor="name"
@@ -35,6 +70,8 @@ const EditUser = () => {
                                                    id="name"
                                                    autoComplete="name"
                                                    placeholder={`Elon Musk`}
+                                                   value={inputs.name}
+                                                   onChange={(e) => setInputs((prevState)=> ({...prevState, name: e.target.value}))}
                                                    className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none"
                                                    required
                                             />
@@ -48,6 +85,8 @@ const EditUser = () => {
                                                    name="role"
                                                    id="role"
                                                    autoComplete="role"
+                                                   value={inputs.role}
+                                                   onChange={(e) => setInputs((prevState)=> ({...prevState, role: e.target.value}))}
                                                    placeholder={`Software Engineer`}
                                                    className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none"
                                                    required
@@ -64,6 +103,8 @@ const EditUser = () => {
                                             name="description"
                                             id="description"
                                             autoComplete="description"
+                                            value={inputs.description}
+                                            onChange={(e) => setInputs((prevState)=> ({...prevState, description: e.target.value}))}
                                             placeholder={`He is a software engineer who is also the CEO of Tesla Inc.`}
                                             className="p-2 w-full text-sm/6 bg-sky-800 dark:bg-white border-solid border-[1px] dark:border-sky-800 border-white rounded-lg outline-none overscroll-contain"
                                             required
@@ -75,7 +116,8 @@ const EditUser = () => {
                                             className={'p-1 bg-red-700 text-white px-3 rounded-lg'}>Reset
                                     </button>
                                     <button type={'submit'}
-                                            className={'p-1 bg-white dark:bg-sky-800 text-sky-800 dark:text-white px-4 rounded-lg'}>Save
+                                            className={'p-1 bg-white dark:bg-sky-800 text-sky-800 dark:text-white px-4 rounded-lg'}>
+                                        {isLoading ? 'Loading...': 'Update'}
                                     </button>
                                 </div>
                             </form>

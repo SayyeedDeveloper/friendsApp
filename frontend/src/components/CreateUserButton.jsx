@@ -2,7 +2,7 @@ import {FaCirclePlus} from "react-icons/fa6";
 import {useState} from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 
-const CreateUserButton = ({setActiveToast}) => {
+const CreateUserButton = ({setActiveToast, setUsers}) => {
     const [toggle, setToggle] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [input, setInput] = useState({
@@ -28,7 +28,8 @@ const CreateUserButton = ({setActiveToast}) => {
                 throw new Error(data.error)
             }
             setActiveToast({show: true, type: 'success', child: 'Friend created successfully!'});
-            handleClick()
+            handleClick();
+            setUsers((prevUser) => [...prevUser, data]);
         } catch (error) {
             setActiveToast({show: true, type: 'error', child: 'Something went wrong please try again!'});
             console.error(error);

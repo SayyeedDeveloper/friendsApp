@@ -1,13 +1,14 @@
 import UserCard from "./userCard.jsx";
 import {useEffect, useState} from "react";
+import {BASE_URL} from "../App.jsx";
 
 
-const UserGrid = ({users, setUsers}) => {
+const UserGrid = ({users, setUsers, setActiveToast}) => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const getUsers = async () => {
                 try {
-                    const res = await fetch('http://127.0.0.1:5000/friends')
+                    const res = await fetch(BASE_URL + '/friends')
                     const data = await res.json()
 
                     if(!res.ok){
@@ -23,14 +24,15 @@ const UserGrid = ({users, setUsers}) => {
         }
         getUsers();
     }, [setUsers]);
+    console.log(users);
 
     return (
         <div className={'container flex flex-wrap justify-center gap-5 px-8 pb-8'}>
             {users.map(user => (
-                <UserCard key={user.id} user={user}/>
+                <UserCard key={user.id} user={user} setUsers={setUsers} setActiveToast={setActiveToast}/>
             ))}
             {isLoading && <p>Loading...</p>}
-            {!isLoading && users.length === 0 && <p>No users found</p>}
+            {!isLoading && users.length === 0 && <p className={'text-sm'}>🙁 No friends found</p>}
         </div>
         )
 }

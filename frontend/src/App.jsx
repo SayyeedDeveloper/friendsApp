@@ -3,8 +3,10 @@ import Navbar from './components/Navbar';
 import UserGrid from "./components/userGrid.jsx";
 import Toast from "./components/Toast.jsx";
 // import Toast from "./components/Toast.jsx";
+export const BASE_URL = 'http://127.0.0.1:5000';
 
 function App() {
+
     const [mode, setMode] = useState(() => localStorage.getItem('mode') || 'light');
     const [activeToast, setActiveToast] = useState({show: false});
 
@@ -15,7 +17,6 @@ function App() {
         setMode(newMode);
         localStorage.setItem('mode', newMode);
     };
-
     useEffect(() => {
         if (mode === 'dark') {
             document.documentElement.classList.add('dark');
@@ -30,7 +31,7 @@ function App() {
             <Navbar mode={mode} toggleMode={toggleMode} setUsers={setUsers} setActiveToast={setActiveToast}/>
             <h1 className="text-xl  p-5 lg:p-7 md:p-6 md:text-2xl lg:text-3xl font-bold uppercase">My Besties 🔥</h1>
             <div className={'container'}>
-                <UserGrid users={users} setUsers={setUsers}/>
+                <UserGrid users={users} setUsers={setUsers} setActiveToast={setActiveToast}/>
             </div>
             {activeToast.show && (
                 <Toast setActiveToast={setActiveToast} child={activeToast.child} type={activeToast.type} />

@@ -35,7 +35,7 @@ def create_fried():
         db.session.add(new_fried)
         db.session.commit()
 
-        return jsonify({'message': 'Friend created successfully'}), 201
+        return new_fried.to_json(), 201
 
     except Exception as e:
         db.session.rollback()
@@ -58,7 +58,7 @@ def delete_friend(id):
         return jsonify({'error': str(e)}), 500
 
 #update friend
-@app.route('/friends/<int:id>', methods=['PUT'])
+@app.route('/friends/<int:id>', methods=['PATCH'])
 def update_friend(id):
     try:
         fried = Fried.query.get(id)
@@ -67,10 +67,9 @@ def update_friend(id):
             fried.name = data.get('name', fried.name)
             fried.role = data.get('role', fried.role)
             fried.description = data.get('description', fried.description)
-            fried.gender = data.get('gender', fried.gender)
-            if data.get('gender') == 'male':
+            if fried.gender == 'male':
                 fried.image_url = f"https://avatar.iran.liara.run/public/boy?username=[{data.get('name')}]"
-            elif data.get('gender')  == 'female':
+            elif fried.gender('gender')  == 'female':
                 fried.image_url = f"https://avatar.iran.liara.run/public/girl?username=[{data.get('name')}]"
             else:
                 fried.image_url = None
