@@ -21,7 +21,7 @@ const EditUser = ({user, setUsers, setActiveToast}) => {
         setIsLoading(true);
         try {
             const res = await fetch(BASE_URL + '/friends/' + user.id, {
-                method: 'PATCH',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
