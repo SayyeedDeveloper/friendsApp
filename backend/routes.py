@@ -58,7 +58,7 @@ def delete_friend(id):
         return jsonify({'error': str(e)}), 500
 
 #update friend
-@app.route('/friends/<int:id>', methods=['PATCH'])
+@app.route('/friends/<int:id>', methods=['PUT'])
 def update_friend(id):
     try:
         fried = Fried.query.get(id)
